@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "49261427897",
+    "project_id": "findmeatfestival",
+    "storage_bucket": "findmeatfestival.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:49261427897:android:b02b8cabc6775874e6ef68",
+        "android_client_info": {
+          "package_name": "com.example.findmeatfestival"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "49261427897-najp0s2ngdq5e73jrrcgo9s6nt8t8ep8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.findmeatfestival",
+            "certificate_hash": "51a5f53dc685027ad6a55dfd828eaeab8a6cfe0f"
+          }
+        },
+        {
+          "client_id": "49261427897-oeftoc9cq16538aqqqbituba8kpctki4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA67vc9FFtYnDclp5PE7TBRN15NlZOnBGE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "49261427897-oeftoc9cq16538aqqqbituba8kpctki4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
