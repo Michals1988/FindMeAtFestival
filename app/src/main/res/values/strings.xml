@@ -7,4 +7,10 @@
     <string name="registerButton">Załóż konto</string>
     <string name="editLogin">adres e-mail</string>
     <string name="editPassword">hasło</string>
+    <string name="mainPage">Strona główna</string>
+    <string name="addFestival">Dodaj festiwal</string>
+    <string name="addFriend">Dodaj znajomego</string>
+    <string name="editFestival">Edytuj festiwal</string>
+    <string name="navigationDrawerOpen">Otwórz pasek nawigacji</string>
+    <string name="navigationDrawerClose">Zamknij pasek nawigacji</string>
 </resources>
