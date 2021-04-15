@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+    <item
+        android:id="@+id/nav_maingPage"
+        android:title="@string/mainPage">
+
+    </item>
+
+    <item
+        android:id="@+id/nav_addFestival"
+        android:title="@string/addFestival">
+
+    </item>
+
+    <item
+        android:id="@+id/nav_addFriend"
+        android:title="@string/addFriend">
+
+    </item>
+
+    <item
+        android:id="@+id/nav_editFestival"
+        android:title="@string/editFestival">
+
+    </item>
+    </group>
+</menu>
