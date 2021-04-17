@@ -39,7 +39,7 @@
             android:layout_marginBottom="25dp"
             android:ems="10"
             android:gravity="center"
-            android:hint="@string/editLogin"
+            android:hint="@string/editEmail"
             android:inputType="textEmailAddress"
             tools:layout_editor_absoluteX="94dp"
             tools:layout_editor_absoluteY="157dp" />
