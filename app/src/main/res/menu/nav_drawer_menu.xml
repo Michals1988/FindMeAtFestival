@@ -9,21 +9,25 @@
     </item>
 
     <item
-        android:id="@+id/nav_addFestival"
-        android:title="@string/addFestival">
+        android:id="@+id/nav_Festival"
+        android:title="@string/festivals">
 
     </item>
 
     <item
-        android:id="@+id/nav_addFriend"
-        android:title="@string/addFriend">
+        android:id="@+id/nav_Friend"
+        android:title="@string/friends">
 
     </item>
 
-    <item
-        android:id="@+id/nav_editFestival"
-        android:title="@string/editFestival">
+    </group>
 
-    </item>
+    <group android:checkableBehavior="single">
+
+        <item
+        android:id="@+id/nav_logOut"
+            android:title="@string/logout">
+
+        </item>
     </group>
 </menu>

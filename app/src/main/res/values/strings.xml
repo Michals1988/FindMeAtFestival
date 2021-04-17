@@ -7,10 +7,16 @@
     <string name="registerButton">Załóż konto</string>
     <string name="editLogin">adres e-mail</string>
     <string name="editPassword">hasło</string>
+    <string name="editTelNumber">numer tel</string>
     <string name="mainPage">Strona główna</string>
     <string name="addFestival">Dodaj festiwal</string>
+    <string name="showFestival">Pokaż festiwale</string>
     <string name="addFriend">Dodaj znajomego</string>
+    <string name="showFriends">Pokaż znajomych</string>
     <string name="editFestival">Edytuj festiwal</string>
     <string name="navigationDrawerOpen">Otwórz pasek nawigacji</string>
     <string name="navigationDrawerClose">Zamknij pasek nawigacji</string>
+    <string name="festivals">Festiwale</string>
+    <string name="friends">Znajomi</string>
+    <string name="logout">Wyloguj</string>
 </resources>

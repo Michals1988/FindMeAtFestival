@@ -35,15 +35,18 @@
             tools:layout_editor_absoluteX="140dp" />
 
         <EditText
-            android:id="@+id/editTextTextPassword"
+            android:id="@+id/editTelNumber"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginBottom="25dp"
             android:ems="10"
             android:gravity="center"
-            android:hint="@string/editPassword"
-            android:inputType="textPassword"
+            android:hint="@string/editTelNumber"
+            android:inputType="number"
+            android:rotation="0"
+            android:rotationX="0"
+            android:rotationY="0"
             app:layout_constraintBottom_toTopOf="@+id/editTextTextPasswordRepeat"
             tools:layout_editor_absoluteX="94dp" />
 
