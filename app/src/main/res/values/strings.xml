@@ -5,16 +5,18 @@
     <string name="loginButton">Zaloguj</string>
     <string name="loginBackToButton">Powrót do logowania</string>
     <string name="registerButton">Załóż konto</string>
-    <string name="editEmail">Adres e-mail</string>
-    <string name="editPassword">Hasło</string>
+    <string name="editLogin">adres e-mail</string>
+    <string name="editPassword">hasło</string>
+    <string name="editTelNumber">numer tel</string>
     <string name="mainPage">Strona główna</string>
     <string name="addFestival">Dodaj festiwal</string>
+    <string name="showFestival">Pokaż festiwale</string>
     <string name="addFriend">Dodaj znajomego</string>
+    <string name="showFriends">Pokaż znajomych</string>
     <string name="editFestival">Edytuj festiwal</string>
     <string name="navigationDrawerOpen">Otwórz pasek nawigacji</string>
     <string name="navigationDrawerClose">Zamknij pasek nawigacji</string>
-    <string name="editName">Imię</string>
-    <string name="editLastName">Nazwisko</string>
-    <string name="editRepeatPassword">Powtórz hasło</string>
-    <string name="editPhoneNumber">Numer telefonu</string>
+    <string name="festivals">Festiwale</string>
+    <string name="friends">Znajomi</string>
+    <string name="logout">Wyloguj</string>
 </resources>
