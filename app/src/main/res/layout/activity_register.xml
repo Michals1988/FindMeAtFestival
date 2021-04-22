@@ -34,6 +34,7 @@
             app:layout_constraintVertical_bias="0.0"
             tools:layout_editor_absoluteX="140dp" />
 
+
         <EditText
             android:id="@+id/editTelNumber"
             android:layout_width="wrap_content"
@@ -79,7 +80,7 @@
             tools:layout_editor_absoluteX="94dp" />
 
         <Button
-            android:id="@+id/buttonGoToRegister"
+            android:id="@+id/buttonRegister"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -89,7 +90,7 @@
             tools:layout_editor_absoluteX="147dp" />
 
         <Button
-            android:id="@+id/buttonLogin"
+            android:id="@+id/buttonbackToLogin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
