@@ -61,12 +61,15 @@ public class RegisterActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                     if (editTextPassword.getText().toString().equals(editTextrepeatPassword.getText().toString())) {
+
                         Map<String, Object> user = new HashMap<>();
                         user.put("eMail", editTexteMail.getText().toString());
                         user.put("lastName", editTextlastName.getText().toString());
                         user.put("name", editTextName.getText().toString());
                         user.put("password", editTextPassword.getText().toString());
                         user.put("tel", editTextTel.getText().toString());
+
+                        System.out.println("tutaj doszla apka.......................................................");
 
                         db.collection("users")
                                 .add(user)
@@ -75,6 +78,7 @@ public class RegisterActivity extends AppCompatActivity {
                                     public void onSuccess(DocumentReference documentReference) {
                                         Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
                                         Toast.makeText(getApplicationContext(), "Udało się!", Toast.LENGTH_SHORT).show();
+
                                     }
                                 })
                                 .addOnFailureListener(new OnFailureListener() {
@@ -84,6 +88,10 @@ public class RegisterActivity extends AppCompatActivity {
                                         Toast.makeText(getApplicationContext(), "Nie Udało się!", Toast.LENGTH_SHORT).show();
                                     }
                                 });
+
+                        Context context=v.getContext();
+                        Intent intent = new Intent(context, LoginActivity.class);
+                        startActivity(intent);
                     }
                     else
                 {
