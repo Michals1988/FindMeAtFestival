@@ -7,7 +7,10 @@
     <string name="registerButton">Załóż konto</string>
     <string name="editLogin">adres e-mail</string>
     <string name="editPassword">hasło</string>
+    <string name="editPasswordRepeat">powtórz hasło</string>
     <string name="editTelNumber">numer tel</string>
+    <string name="editName">Imię</string>
+    <string name="editLastName">Nazwisko</string>
     <string name="mainPage">Strona główna</string>
     <string name="addFestival">Dodaj festiwal</string>
     <string name="showFestival">Pokaż festiwale</string>

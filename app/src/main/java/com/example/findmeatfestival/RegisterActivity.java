@@ -40,7 +40,7 @@ public class RegisterActivity extends AppCompatActivity {
         editTextName = (EditText) findViewById(R.id.editTextName);
         editTextlastName = (EditText) findViewById(R.id.editTextLastName);
         editTexteMail = (EditText) findViewById(R.id.editTextEmailAddress);
-        editTextTel = (EditText) findViewById(R.id.editTextPhone);
+        editTextTel = (EditText) findViewById(R.id.editTelNumber);
         editTextPassword = (EditText) findViewById(R.id.editTextPassword);
         editTextrepeatPassword = (EditText) findViewById(R.id.editTextPasswordRepeat);
 
@@ -96,9 +96,6 @@ public class RegisterActivity extends AppCompatActivity {
 
         });
 
-
-
-        });
 
     }
 }
