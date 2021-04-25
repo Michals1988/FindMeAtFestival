@@ -74,6 +74,7 @@ public class RegisterActivity extends AppCompatActivity {
                                     @Override
                                     public void onSuccess(DocumentReference documentReference) {
                                         Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
+                                        Toast.makeText(getApplicationContext(), "Udało się!", Toast.LENGTH_SHORT).show();
                                     }
                                 })
                                 .addOnFailureListener(new OnFailureListener() {
