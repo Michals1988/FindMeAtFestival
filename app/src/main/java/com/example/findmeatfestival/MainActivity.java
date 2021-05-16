@@ -8,23 +8,44 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.appcompat.widget.Toolbar;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
+
+import java.io.IOException;
+import java.util.List;
+import java.util.Locale;
+
+import static androidx.constraintlayout.motion.widget.Debug.getLocation;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private DrawerLayout drawer;
+
+    FusedLocationProviderClient fusedLocationProviderClient;
+
+    public String latitude="51.9356214";
+    public String longitude= "15.5061862";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +71,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Button buttonFriends = findViewById(R.id.buttonFriends);
 
         FloatingActionButton FABemergencyCall = findViewById(R.id.FABemergencyCall);
+        FloatingActionButton FABshareLocation = findViewById(R.id.FABshareLocation);
+
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
 
         buttonFestival.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,6 +103,24 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 intentCall.setData(Uri.parse("tel:"+emergencyNo));
 
                 startActivity(intentCall);
+            }
+        });
+
+        FABshareLocation.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                if (ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_FINE_LOCATION)== PackageManager.PERMISSION_GRANTED) {
+
+                    getLocation();
+                    Toast.makeText(MainActivity.this, "Latitude: "+latitude +"\n Longitude: "+longitude,
+                            Toast.LENGTH_LONG).show();
+                }
+                else
+                {
+                    ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 44);
+                }
             }
         });
 
@@ -113,5 +155,40 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
         }
         return true;
+    }
+
+    @SuppressLint("MissingPermission")
+    private void getLocation()
+    {
+        /*Toast.makeText(MainActivity.this, "przed W GetLocation",
+                Toast.LENGTH_LONG).show();*/
+        fusedLocationProviderClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
+            @Override
+            public void onComplete(@NonNull Task<Location> task) {
+                Location location = task.getResult();
+
+                if (location != null)
+                {
+
+                    try {
+
+                        Geocoder geocoder = new Geocoder(MainActivity.this, Locale.getDefault());
+                        List<Address> addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
+
+                        latitude = String.valueOf(addresses.get(0).getLatitude());
+                        longitude = String.valueOf(addresses.get(0).getLongitude());
+
+
+                    }
+                    catch (IOException e)
+                    {
+                        e.printStackTrace();
+                    }
+
+
+                }
+
+            }
+        });
     }
 }
