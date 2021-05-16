@@ -8,7 +8,7 @@
     android:id="@+id/drawer_layout"
     android:fitsSystemWindows="true"
     tools:context="com.example.findmeatfestival.MainActivity"
-    tools:openDrawer="start">
+    tools:openDrawer="end">
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
@@ -61,7 +61,33 @@
                         android:layout_gravity="center"
                         android:layout_marginTop="25dp"
                         android:text="@string/friends" />
+
+
                 </LinearLayout>
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/FABshareLocation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|end"
+                    android:clickable="true"
+                    app:srcCompat="@android:drawable/ic_menu_share"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginBottom="100dp"
+                    app:useCompatPadding="true" />
+
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/FABemergencyCall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|end"
+                    android:clickable="true"
+                    app:srcCompat="@android:drawable/ic_menu_call"
+                    android:layout_margin="16dp"
+                    app:useCompatPadding="true" />
+
+
             </FrameLayout>
 
 
