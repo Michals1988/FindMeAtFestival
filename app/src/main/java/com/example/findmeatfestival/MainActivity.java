@@ -3,11 +3,15 @@ package com.example.findmeatfestival;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,6 +19,7 @@ import android.widget.Button;
 
 import androidx.appcompat.widget.Toolbar;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -44,6 +49,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Button buttonFestival = findViewById(R.id.buttonFestivals);
         Button buttonFriends = findViewById(R.id.buttonFriends);
 
+        FloatingActionButton FABemergencyCall = findViewById(R.id.FABemergencyCall);
+
         buttonFestival.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -59,6 +66,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 Context context = v.getContext();
                 Intent intentFriends = new Intent(context, FriendsActivity.class);
                 startActivity(intentFriends);
+            }
+        });
+
+        FABemergencyCall.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                String emergencyNo = "112";
+               Intent intentCall = new Intent(Intent.ACTION_DIAL);
+                intentCall.setData(Uri.parse("tel:"+emergencyNo));
+
+                startActivity(intentCall);
             }
         });
 
