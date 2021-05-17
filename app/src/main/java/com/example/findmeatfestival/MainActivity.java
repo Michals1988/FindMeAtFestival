@@ -15,6 +15,7 @@ import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -45,16 +46,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private DrawerLayout drawer;
 
     FusedLocationProviderClient fusedLocationProviderClient;
+
     FirebaseAuth fAuth = FirebaseAuth.getInstance();
 
-    public String latitude = "51.9356214";
-    public String longitude = "15.5061862";
+    String LOCATION_PROVIDER = LocationManager.GPS_PROVIDER;
+    public String latitude = "";
+    public String longitude = "";
 
     FirebaseUser currentUser = fAuth.getCurrentUser();
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     private String userId;
     private String documentID;
+
 
 
     @Override
@@ -132,8 +136,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 if (ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
 
                     getLocation();
-                    Toast.makeText(MainActivity.this, "Latitude: " + latitude + "\n Longitude: " + longitude,
-                            Toast.LENGTH_LONG).show();
+
+                    Toast.makeText(MainActivity.this, "Latitude: "+latitude +"\nLongitude: "+longitude,Toast.LENGTH_LONG).show();
                 } else {
                     ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 44);
                 }
@@ -187,9 +191,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     @SuppressLint("MissingPermission")
-    private void getLocation() {
-        /*Toast.makeText(MainActivity.this, "przed W GetLocation",
-                Toast.LENGTH_LONG).show();*/
+
+    private void getLocation()
+    {
+
         fusedLocationProviderClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
             @Override
             public void onComplete(@NonNull Task<Location> task) {
