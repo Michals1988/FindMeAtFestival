@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.RuntimeExecutionException;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.auth.AuthResult;
@@ -75,13 +76,12 @@ public class LoginActivity extends AppCompatActivity {
                             String userId=fAuth.getUid();
                             final String[] documentID = new String[1];
 
-                            db.collection("users").whereEqualTo("eMail", editTextEmail.getText().toString())
+                            Task t1=db.collection("users").whereEqualTo("eMail", editTextEmail.getText().toString())
                                     .get()
                                     .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                                         @Override
                                         public void onComplete(@NonNull Task<QuerySnapshot> task) {
                                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                                System.out.println(document.getId());
                                                 documentID[0] =document.getId();
                                                 db.collection("users").document(document.getId()).update("documentId",document.getId());
                                                 db.collection("users").document(document.getId()).update("userId",fAuth.getUid());
@@ -89,7 +89,10 @@ public class LoginActivity extends AppCompatActivity {
                                         }
                                     });
 
+
                             Context context=v1.getContext();
+
+
 
                             Intent intentMainPage=new Intent(context, MainActivity.class);
                             intentMainPage.putExtra("UserID",userId);

@@ -23,4 +23,11 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Body1">
 
     </TextView>
+
+    <TextView
+        android:id="@+id/nav_logOut"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="bottom"
+        android:text="Log out" />
 </androidx.appcompat.widget.LinearLayoutCompat>

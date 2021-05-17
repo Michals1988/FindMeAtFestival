@@ -9,24 +9,26 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
 
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.firestore.FirebaseFirestore;
 
-public class FriendsActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener  {
 
+public class FriendsAddActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener  {
+
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private DrawerLayout drawer;
 
     private String userId;
     private String documentID;
 
-    Button buttonAddFriends;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_friends);
+        setContentView(R.layout.activity_friends_add);
+
+        userId = getIntent().getStringExtra("UserID");
+        documentID = getIntent().getStringExtra("DocumentID");
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -43,19 +45,7 @@ public class FriendsActivity extends AppCompatActivity implements NavigationView
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        buttonAddFriends=findViewById(R.id.buttonAddFriend);
-
-        buttonAddFriends.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intentAddFriend= new Intent(v.getContext(), FriendsAddActivity.class);
-                intentAddFriend.putExtra("UserId",userId);
-                intentAddFriend.putExtra("DocumentID",documentID);
-                startActivity(intentAddFriend);
-            }
-        });
     }
-
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
@@ -63,6 +53,7 @@ public class FriendsActivity extends AppCompatActivity implements NavigationView
                 Intent intentMainPage= new Intent(this, MainActivity.class);
                 intentMainPage.putExtra("UserId",userId);
                 intentMainPage.putExtra("DocumentID",documentID);
+                finish();
                 startActivity(intentMainPage);
                 break;
 
@@ -70,6 +61,7 @@ public class FriendsActivity extends AppCompatActivity implements NavigationView
                 Intent intentFestival = new Intent(this, FestivalActivity.class);
                 intentFestival.putExtra("UserId",userId);
                 intentFestival.putExtra("DocumentID",documentID);
+                finish();
                 startActivity(intentFestival);
                 break;
 
@@ -77,6 +69,7 @@ public class FriendsActivity extends AppCompatActivity implements NavigationView
                 Intent intentFriend = new Intent(this, FriendsActivity.class);
                 intentFriend.putExtra("UserId",userId);
                 intentFriend.putExtra("DocumentID",documentID);
+                finish();
                 startActivity(intentFriend);
                 break;
         }

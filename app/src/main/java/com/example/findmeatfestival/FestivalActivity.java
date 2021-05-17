@@ -30,11 +30,12 @@ public class FestivalActivity extends AppCompatActivity implements NavigationVie
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        userId = getIntent().getStringExtra("UserID");
+        documentID = getIntent().getStringExtra("DocumentID");
+
+        System.out.println(documentID);
+
         drawer = findViewById(R.id.drawer_layout);
-
-        userId=getIntent().getStringExtra("UserID");
-        documentID=getIntent().getStringExtra("DocumentID");
-
 
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar,
@@ -54,6 +55,7 @@ public class FestivalActivity extends AppCompatActivity implements NavigationVie
                 Intent intentAddFestival = new Intent(v.getContext(), FestivalAddActivity.class);
                 intentAddFestival.putExtra("UserId",userId);
                 intentAddFestival.putExtra("DocumentID",documentID);
+                finish();
                 startActivity(intentAddFestival);
             }
         });
@@ -64,16 +66,25 @@ public class FestivalActivity extends AppCompatActivity implements NavigationVie
         switch (item.getItemId()) {
             case R.id.nav_maingPage:
                 Intent intentMainPage= new Intent(this, MainActivity.class);
+                intentMainPage.putExtra("UserId",userId);
+                intentMainPage.putExtra("DocumentID",documentID);
+                finish();
                 startActivity(intentMainPage);
                 break;
 
             case R.id.nav_Festival:
                 Intent intentFestival = new Intent(this, FestivalActivity.class);
+                intentFestival.putExtra("UserId",userId);
+                intentFestival.putExtra("DocumentID",documentID);
+                finish();
                 startActivity(intentFestival);
                 break;
 
             case R.id.nav_Friend:
                 Intent intentFriend = new Intent(this, FriendsActivity.class);
+                intentFriend.putExtra("UserId",userId);
+                intentFriend.putExtra("DocumentID",documentID);
+                finish();
                 startActivity(intentFriend);
                 break;
         }
