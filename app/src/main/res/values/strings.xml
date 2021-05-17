@@ -22,4 +22,6 @@
     <string name="festivals">Festiwale</string>
     <string name="friends">Znajomi</string>
     <string name="logout">Wyloguj</string>
+    <string name="festivalAddButton">Dodaj festiwal</string>
+    <string name="festivalCancelButton">Anuluj</string>
 </resources>

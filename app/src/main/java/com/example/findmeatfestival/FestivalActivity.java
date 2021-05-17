@@ -9,12 +9,18 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
 import com.google.android.material.navigation.NavigationView;
 
 public class FestivalActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener  {
 
     private DrawerLayout drawer;
+    private String userId;
+    private String documentID;
+    private Button addFestivalButton;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +32,10 @@ public class FestivalActivity extends AppCompatActivity implements NavigationVie
 
         drawer = findViewById(R.id.drawer_layout);
 
+        userId=getIntent().getStringExtra("UserID");
+        documentID=getIntent().getStringExtra("DocumentID");
+
+
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar,
                 R.string.navigationDrawerOpen, R.string.navigationDrawerClose);
@@ -35,6 +45,18 @@ public class FestivalActivity extends AppCompatActivity implements NavigationVie
 
         drawer.addDrawerListener(toggle);
         toggle.syncState();
+
+        addFestivalButton=findViewById(R.id.buttonAddFestival);
+
+        addFestivalButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intentAddFestival = new Intent(v.getContext(), FestivalAddActivity.class);
+                intentAddFestival.putExtra("UserId",userId);
+                intentAddFestival.putExtra("DocumentID",documentID);
+                startActivity(intentAddFestival);
+            }
+        });
 
     }
     @Override
