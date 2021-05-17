@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -25,6 +26,8 @@ import java.util.Map;
 public class RegisterActivity extends AppCompatActivity {
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
+    FirebaseAuth fAuth=FirebaseAuth.getInstance();
+
     private static final String TAG = "MyActivity";
 
     Button buttonRegister;
@@ -66,10 +69,9 @@ public class RegisterActivity extends AppCompatActivity {
                         user.put("eMail", editTexteMail.getText().toString());
                         user.put("lastName", editTextlastName.getText().toString());
                         user.put("name", editTextName.getText().toString());
-                        user.put("password", editTextPassword.getText().toString());
                         user.put("tel", editTextTel.getText().toString());
 
-                        System.out.println("tutaj doszla apka.......................................................");
+
 
                         db.collection("users")
                                 .add(user)
@@ -89,6 +91,8 @@ public class RegisterActivity extends AppCompatActivity {
                                     }
                                 });
 
+                        fAuth.createUserWithEmailAndPassword(editTexteMail.getText().toString().trim(),editTextPassword.getText().toString().trim());
+
                         Context context=v.getContext();
                         Intent intent = new Intent(context, LoginActivity.class);
                         startActivity(intent);
@@ -97,6 +101,8 @@ public class RegisterActivity extends AppCompatActivity {
                 {
                     Toast.makeText(getApplicationContext(), "Niepoprawne dane!", Toast.LENGTH_SHORT).show();
                 }
+
+
 
 
 

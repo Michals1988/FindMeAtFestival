@@ -30,6 +30,9 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.io.IOException;
 import java.util.List;
@@ -42,14 +45,32 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private DrawerLayout drawer;
 
     FusedLocationProviderClient fusedLocationProviderClient;
+    FirebaseAuth fAuth = FirebaseAuth.getInstance();
 
-    public String latitude="51.9356214";
-    public String longitude= "15.5061862";
+    public String latitude = "51.9356214";
+    public String longitude = "15.5061862";
+
+    FirebaseUser currentUser = fAuth.getCurrentUser();
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+    private String userId;
+    private String documentID;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if (currentUser != null) {
+            userId = getIntent().getStringExtra("UserID");
+            documentID = getIntent().getStringExtra("DocumentID");
+            currentUser.reload();
+        } else {
+            Intent intentLoginPage = new Intent(this, LoginActivity.class);
+            finish();
+            startActivity(intentLoginPage);
+        }
+
 
         setContentView(R.layout.activity_main);
 
@@ -69,6 +90,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         Button buttonFestival = findViewById(R.id.buttonFestivals);
         Button buttonFriends = findViewById(R.id.buttonFriends);
+
 
         FloatingActionButton FABemergencyCall = findViewById(R.id.FABemergencyCall);
         FloatingActionButton FABshareLocation = findViewById(R.id.FABshareLocation);
@@ -93,32 +115,26 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
 
-        FABemergencyCall.setOnClickListener(new View.OnClickListener()
-        {
+        FABemergencyCall.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 String emergencyNo = "112";
-               Intent intentCall = new Intent(Intent.ACTION_DIAL);
-                intentCall.setData(Uri.parse("tel:"+emergencyNo));
+                Intent intentCall = new Intent(Intent.ACTION_DIAL);
+                intentCall.setData(Uri.parse("tel:" + emergencyNo));
 
                 startActivity(intentCall);
             }
         });
 
-        FABshareLocation.setOnClickListener(new View.OnClickListener()
-        {
+        FABshareLocation.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
-                if (ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_FINE_LOCATION)== PackageManager.PERMISSION_GRANTED) {
+            public void onClick(View v) {
+                if (ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
 
                     getLocation();
-                    Toast.makeText(MainActivity.this, "Latitude: "+latitude +"\n Longitude: "+longitude,
+                    Toast.makeText(MainActivity.this, "Latitude: " + latitude + "\n Longitude: " + longitude,
                             Toast.LENGTH_LONG).show();
-                }
-                else
-                {
+                } else {
                     ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 44);
                 }
             }
@@ -140,26 +156,38 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.nav_maingPage:
-                Intent intentMainPage= new Intent(this, MainActivity.class);
+                Intent intentMainPage = new Intent(this, MainActivity.class);
+                intentMainPage.putExtra("UserId",userId);
+                intentMainPage.putExtra("DocumentID",documentID);
                 startActivity(intentMainPage);
                 break;
 
             case R.id.nav_Festival:
                 Intent intentFestival = new Intent(this, FestivalActivity.class);
+                intentFestival.putExtra("UserId",userId);
+                intentFestival.putExtra("DocumentID",documentID);
                 startActivity(intentFestival);
                 break;
 
             case R.id.nav_Friend:
                 Intent intentFriend = new Intent(this, FriendsActivity.class);
+                intentFriend.putExtra("UserId",userId);
+                intentFriend.putExtra("DocumentID",documentID);
                 startActivity(intentFriend);
                 break;
+
+            case R.id.nav_logOut:
+                fAuth.signOut();
+
+                Intent intentLoginPage = new Intent(this, LoginActivity.class);
+                //finish();
+                startActivity(intentLoginPage);
         }
         return true;
     }
 
     @SuppressLint("MissingPermission")
-    private void getLocation()
-    {
+    private void getLocation() {
         /*Toast.makeText(MainActivity.this, "przed W GetLocation",
                 Toast.LENGTH_LONG).show();*/
         fusedLocationProviderClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
@@ -167,8 +195,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             public void onComplete(@NonNull Task<Location> task) {
                 Location location = task.getResult();
 
-                if (location != null)
-                {
+                if (location != null) {
 
                     try {
 
@@ -179,9 +206,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         longitude = String.valueOf(addresses.get(0).getLongitude());
 
 
-                    }
-                    catch (IOException e)
-                    {
+                    } catch (IOException e) {
                         e.printStackTrace();
                     }
 
