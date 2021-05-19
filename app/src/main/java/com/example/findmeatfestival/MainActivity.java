@@ -34,6 +34,8 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.io.IOException;
 import java.util.List;
@@ -57,7 +59,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     private String userId;
-    private String documentID;
+    private String[] documentID=new String[1];
 
 
 
@@ -66,8 +68,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
 
         if (currentUser != null) {
-            userId = getIntent().getStringExtra("UserID");
-            documentID = getIntent().getStringExtra("DocumentID");
             currentUser.reload();
         } else {
             Intent intentLoginPage = new Intent(this, LoginActivity.class);
@@ -75,6 +75,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             startActivity(intentLoginPage);
         }
 
+        userId = getIntent().getStringExtra("UserID");
+        getDocumentID(userId);
+
+
+
+        System.out.println(documentID);
 
         setContentView(R.layout.activity_main);
 
@@ -106,6 +112,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             public void onClick(View v) {
                 Context context = v.getContext();
                 Intent intentFestival = new Intent(context, FestivalActivity.class);
+                intentFestival.putExtra("UserId",userId);
+                intentFestival.putExtra("DocumentID",documentID[0]);
                 startActivity(intentFestival);
             }
         });
@@ -162,21 +170,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_maingPage:
                 Intent intentMainPage = new Intent(this, MainActivity.class);
                 intentMainPage.putExtra("UserId",userId);
-                intentMainPage.putExtra("DocumentID",documentID);
+                intentMainPage.putExtra("DocumentID",documentID[0]);
                 startActivity(intentMainPage);
                 break;
 
             case R.id.nav_Festival:
                 Intent intentFestival = new Intent(this, FestivalActivity.class);
                 intentFestival.putExtra("UserId",userId);
-                intentFestival.putExtra("DocumentID",documentID);
+                intentFestival.putExtra("DocumentID",documentID[0]);
                 startActivity(intentFestival);
                 break;
 
             case R.id.nav_Friend:
                 Intent intentFriend = new Intent(this, FriendsActivity.class);
                 intentFriend.putExtra("UserId",userId);
-                intentFriend.putExtra("DocumentID",documentID);
+                intentFriend.putExtra("DocumentID",documentID[0]);
                 startActivity(intentFriend);
                 break;
 
@@ -220,5 +228,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             }
         });
+    }
+
+    private void getDocumentID(String userId){
+        db.collection("users").whereEqualTo("userId", userId)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            documentID[0] =document.getId();
+                            System.out.println("wewnatrz gedocumentId"+documentID[0]);
+                        }
+                    }
+                });
     }
 }
