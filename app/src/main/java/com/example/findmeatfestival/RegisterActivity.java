@@ -67,9 +67,8 @@ public class RegisterActivity extends AppCompatActivity {
 
                     if (editTextPassword.getText().toString().equals(editTextrepeatPassword.getText().toString())) {
 
-                        fAuth.createUserWithEmailAndPassword(editTexteMail.getText().toString().trim(),editTextPassword.getText().toString().trim()).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
-
-
+                        fAuth.createUserWithEmailAndPassword(editTexteMail.getText().toString().trim(),editTextPassword.getText().toString().trim())
+                                .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                             @Override
                             public void onSuccess(AuthResult authResult) {
                                 Map<String, Object> user = new HashMap<>();
@@ -87,18 +86,16 @@ public class RegisterActivity extends AppCompatActivity {
                                                 Toast.makeText(getApplicationContext(), "Udało się!", Toast.LENGTH_SHORT).show();
 
                                             }
-                                        })
-                                        .addOnFailureListener(new OnFailureListener() {
-                                            @Override
-                                            public void onFailure(@NonNull Exception e) {
-                                                if(e instanceof FirebaseAuthUserCollisionException)
-                                                {
-                                                    Toast.makeText(getApplicationContext(), "Użytkownik już istnieje!", Toast.LENGTH_SHORT).show();
-                                                }
-                                                Log.w(TAG, "Error adding document", e);
-                                                Toast.makeText(getApplicationContext(), "Nie udało się!", Toast.LENGTH_SHORT).show();
-                                            }
-                                        });
+                                        });}
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                if(e instanceof FirebaseAuthUserCollisionException)
+                                {
+                                    Toast.makeText(getApplicationContext(), "Użytkownik już istnieje!", Toast.LENGTH_SHORT).show();
+                                }
+                                Log.w(TAG, "Error adding document", e);
+                                Toast.makeText(getApplicationContext(), "Nie udało się!", Toast.LENGTH_SHORT).show();
                             }
                         });
 
