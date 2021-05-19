@@ -69,6 +69,7 @@ public class RegisterActivity extends AppCompatActivity {
 
                         fAuth.createUserWithEmailAndPassword(editTexteMail.getText().toString().trim(),editTextPassword.getText().toString().trim()).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
 
+
                             @Override
                             public void onSuccess(AuthResult authResult) {
                                 Map<String, Object> user = new HashMap<>();
