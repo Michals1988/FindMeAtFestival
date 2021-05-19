@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -65,33 +66,34 @@ public class RegisterActivity extends AppCompatActivity {
 
                     if (editTextPassword.getText().toString().equals(editTextrepeatPassword.getText().toString())) {
 
-                        Map<String, Object> user = new HashMap<>();
-                        user.put("eMail", editTexteMail.getText().toString());
-                        user.put("lastName", editTextlastName.getText().toString());
-                        user.put("name", editTextName.getText().toString());
-                        user.put("tel", editTextTel.getText().toString());
+                        fAuth.createUserWithEmailAndPassword(editTexteMail.getText().toString().trim(),editTextPassword.getText().toString().trim()).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+                            @Override
+                            public void onSuccess(AuthResult authResult) {
+                                Map<String, Object> user = new HashMap<>();
+                                user.put("eMail", editTexteMail.getText().toString());
+                                user.put("lastName", editTextlastName.getText().toString());
+                                user.put("name", editTextName.getText().toString());
+                                user.put("tel", editTextTel.getText().toString());
 
+                                db.collection("users")
+                                        .add(user)
+                                        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                            @Override
+                                            public void onSuccess(DocumentReference documentReference) {
+                                                Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
+                                                Toast.makeText(getApplicationContext(), "Udało się!", Toast.LENGTH_SHORT).show();
 
-
-                        db.collection("users")
-                                .add(user)
-                                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                                    @Override
-                                    public void onSuccess(DocumentReference documentReference) {
-                                        Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
-                                        Toast.makeText(getApplicationContext(), "Udało się!", Toast.LENGTH_SHORT).show();
-
-                                    }
-                                })
-                                .addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
-                                        Log.w(TAG, "Error adding document", e);
-                                        Toast.makeText(getApplicationContext(), "Nie Udało się!", Toast.LENGTH_SHORT).show();
-                                    }
-                                });
-
-                        fAuth.createUserWithEmailAndPassword(editTexteMail.getText().toString().trim(),editTextPassword.getText().toString().trim());
+                                            }
+                                        })
+                                        .addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                Log.w(TAG, "Error adding document", e);
+                                                Toast.makeText(getApplicationContext(), "Nie Udało się!", Toast.LENGTH_SHORT).show();
+                                            }
+                                        });
+                            }
+                        });
 
                         Context context=v.getContext();
                         Intent intent = new Intent(context, LoginActivity.class);
