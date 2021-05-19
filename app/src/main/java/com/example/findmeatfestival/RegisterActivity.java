@@ -17,6 +17,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -67,6 +68,8 @@ public class RegisterActivity extends AppCompatActivity {
                     if (editTextPassword.getText().toString().equals(editTextrepeatPassword.getText().toString())) {
 
                         fAuth.createUserWithEmailAndPassword(editTexteMail.getText().toString().trim(),editTextPassword.getText().toString().trim()).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+
+
                             @Override
                             public void onSuccess(AuthResult authResult) {
                                 Map<String, Object> user = new HashMap<>();
@@ -88,8 +91,12 @@ public class RegisterActivity extends AppCompatActivity {
                                         .addOnFailureListener(new OnFailureListener() {
                                             @Override
                                             public void onFailure(@NonNull Exception e) {
+                                                if(e instanceof FirebaseAuthUserCollisionException)
+                                                {
+                                                    Toast.makeText(getApplicationContext(), "Użytkownik już istnieje!", Toast.LENGTH_SHORT).show();
+                                                }
                                                 Log.w(TAG, "Error adding document", e);
-                                                Toast.makeText(getApplicationContext(), "Nie Udało się!", Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(getApplicationContext(), "Nie udało się!", Toast.LENGTH_SHORT).show();
                                             }
                                         });
                             }
