@@ -63,7 +63,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         buttonRegister.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(final View v) {
 
                     if (editTextPassword.getText().toString().equals(editTextrepeatPassword.getText().toString())) {
 
@@ -85,6 +85,9 @@ public class RegisterActivity extends AppCompatActivity {
                                                 Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
                                                 Toast.makeText(getApplicationContext(), "Udało się!", Toast.LENGTH_SHORT).show();
 
+                                                Context context=v.getContext();                        
+                                                Intent intent = new Intent(context, LoginActivity.class);
+                                                startActivity(intent);
                                             }
                                         });}
                         }).addOnFailureListener(new OnFailureListener() {
@@ -99,9 +102,7 @@ public class RegisterActivity extends AppCompatActivity {
                             }
                         });
 
-                        Context context=v.getContext();
-                        Intent intent = new Intent(context, LoginActivity.class);
-                        startActivity(intent);
+
                     }
                     else
                 {
