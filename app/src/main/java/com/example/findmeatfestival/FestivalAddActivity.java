@@ -7,6 +7,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -116,7 +117,7 @@ public class FestivalAddActivity extends AppCompatActivity implements Navigation
 
         buttonAddFestivalToBase.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(final View v) {
 
                 DateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
                 try {
@@ -136,12 +137,18 @@ public class FestivalAddActivity extends AppCompatActivity implements Navigation
                             @Override
                             public void onSuccess(DocumentReference documentReference) {
                                 Toast.makeText(getApplicationContext(), "Festiwal zapisany!", Toast.LENGTH_SHORT).show();
+
+                                Context context=v.getContext();
+                                Intent intentBackToFestivals=new Intent(context, FestivalActivity.class);
+                                intentBackToFestivals.putExtra("UserId",userId);
+                                intentBackToFestivals.putExtra("DocumentID",documentID);
+                                finish();
+                                startActivity(intentBackToFestivals);
                             }
                         }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         Toast.makeText(getApplicationContext(), "Błąd zapisu...", Toast.LENGTH_SHORT).show();
-
                     }
                 });
 

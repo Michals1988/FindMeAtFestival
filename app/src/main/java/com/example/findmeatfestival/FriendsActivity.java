@@ -28,6 +28,9 @@ public class FriendsActivity extends AppCompatActivity implements NavigationView
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_friends);
 
+        userId = getIntent().getStringExtra("UserID");
+        documentID = getIntent().getStringExtra("DocumentID");
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 

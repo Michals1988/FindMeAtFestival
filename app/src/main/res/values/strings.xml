@@ -24,4 +24,14 @@
     <string name="logout">Wyloguj</string>
     <string name="festivalAddButton">Dodaj festiwal</string>
     <string name="festivalCancelButton">Anuluj</string>
+    <string name="festivalShowOLD">Archiwalne festiwale</string>
+    <string name="festivalShowNEW">Nadchodzące festiwale</string>
+    <string name="festivalOneShowAddReminder">Dodaj przypomnienie</string>
+    <string name="festivalOneShowEdit">Edytuj festiwal</string>
+    <string name="festivalOneShowDelete">Usuń festiwal</string>
+    <string name="festivalEditName">Nazwa festiwalu:</string>
+    <string name="festivalEditDate">Data festiwalu:</string>
+    <string name="festivalEditAccept">Zapisz zmiany</string>
+    <string name="festivalEditCancel">Anuluj</string>
+
 </resources>

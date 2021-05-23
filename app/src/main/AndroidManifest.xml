@@ -2,12 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.findmeatfestival">
 
-
-    <uses-permission android:name="android.permission.CALL_PHONE"/>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
         android:allowBackup="true"
@@ -16,8 +14,23 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".FriendsAddActivity"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".FestivalEditActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".FestivalOneShowActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ListOldFestivalActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ListNewFestivalActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".FestivalShowActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".FriendsAddActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".FestivalAddActivity"
             android:theme="@style/AppTheme.NoActionBar" />

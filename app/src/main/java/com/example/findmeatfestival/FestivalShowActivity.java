@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -14,26 +15,23 @@ import android.widget.Button;
 
 import com.google.android.material.navigation.NavigationView;
 
-public class FestivalActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener  {
+public class FestivalShowActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+
 
     private DrawerLayout drawer;
+
     private String userId;
     private String documentID;
-    private Button addFestivalButton, showFestival;
 
+    Button buttonOldFestival, buttonNewFestival;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_festival);
+        setContentView(R.layout.activity_festival_show);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        userId = getIntent().getStringExtra("UserID");
-        documentID = getIntent().getStringExtra("DocumentID");
-
-        System.out.println(documentID);
 
         drawer = findViewById(R.id.drawer_layout);
 
@@ -47,32 +45,37 @@ public class FestivalActivity extends AppCompatActivity implements NavigationVie
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        addFestivalButton=findViewById(R.id.buttonAddFestival);
-        showFestival=findViewById(R.id.buttonShowFestival);
+        userId = getIntent().getStringExtra("UserID");
+        documentID = getIntent().getStringExtra("DocumentID");
 
-        addFestivalButton.setOnClickListener(new View.OnClickListener() {
+        buttonNewFestival=findViewById(R.id.buttonNewFestival);
+        buttonOldFestival=findViewById(R.id.buttonOldFestival);
+
+        buttonNewFestival.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intentAddFestival = new Intent(v.getContext(), FestivalAddActivity.class);
-                intentAddFestival.putExtra("UserId",userId);
-                intentAddFestival.putExtra("DocumentID",documentID);
-                finish();
-                startActivity(intentAddFestival);
+                Context context=v.getContext();
+                Intent intentNewFestival=new Intent(context, ListNewFestivalActivity.class);
+                intentNewFestival.putExtra("UserId",userId);
+                intentNewFestival.putExtra("DocumentID",documentID);
+                startActivity(intentNewFestival);
             }
         });
 
-        showFestival.setOnClickListener(new View.OnClickListener() {
+        buttonOldFestival.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intentShowFestival = new Intent(v.getContext(), FestivalShowActivity.class);
-                intentShowFestival.putExtra("UserId",userId);
-                intentShowFestival.putExtra("DocumentID",documentID);
-                finish();
-                startActivity(intentShowFestival);
+                Context context=v.getContext();
+                Intent intentOldFestival=new Intent(context, ListOldFestivalActivity.class);
+                intentOldFestival.putExtra("UserId",userId);
+                intentOldFestival.putExtra("DocumentID",documentID);
+                startActivity(intentOldFestival);
+
             }
         });
 
     }
+
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
@@ -80,7 +83,6 @@ public class FestivalActivity extends AppCompatActivity implements NavigationVie
                 Intent intentMainPage= new Intent(this, MainActivity.class);
                 intentMainPage.putExtra("UserId",userId);
                 intentMainPage.putExtra("DocumentID",documentID);
-                finish();
                 startActivity(intentMainPage);
                 break;
 
@@ -88,7 +90,6 @@ public class FestivalActivity extends AppCompatActivity implements NavigationVie
                 Intent intentFestival = new Intent(this, FestivalActivity.class);
                 intentFestival.putExtra("UserId",userId);
                 intentFestival.putExtra("DocumentID",documentID);
-                finish();
                 startActivity(intentFestival);
                 break;
 
@@ -96,7 +97,6 @@ public class FestivalActivity extends AppCompatActivity implements NavigationVie
                 Intent intentFriend = new Intent(this, FriendsActivity.class);
                 intentFriend.putExtra("UserId",userId);
                 intentFriend.putExtra("DocumentID",documentID);
-                finish();
                 startActivity(intentFriend);
                 break;
         }
